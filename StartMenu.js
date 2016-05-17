@@ -15,8 +15,13 @@ Fishy.StartMenu.prototype = {
             this.physics.enable(starfish, Phaser.Physics.ARCADE);
             starfish.body.velocity.y = 20;
         }
+        this.fullButton = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 50, 'fullscreen');
+        this.fullButton.anchor.setTo(0.5);
+        this.fullButton.scale.setTo(0.4);
+        this.fullButton.inputEnabled = true;
+        this.fullButton.events.onInputDown.add(this.fullTouch, this);
         
-        this.startButton = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playButton');
+        this.startButton = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 50, 'playbutton');
         this.startButton.anchor.setTo(0.5, 0.5);
         this.startButton.inputEnabled = true;
         this.startButton.events.onInputDown.add(this.startTouch, this);
@@ -29,5 +34,10 @@ Fishy.StartMenu.prototype = {
     startTouch: function(button) {
        // this.game.scale.startFullScreen();
         this.game.state.start('Play');  
+    },
+    
+    fullTouch: function(button) {
+       this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+            this.game.scale.startFullScreen()
     }
 };

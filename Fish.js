@@ -222,6 +222,7 @@ Fishy.Fish.prototype = {
     },
     
     die: function(combo) {
+        combo = true; //all kills give combo now. cheap fix
         if (!this.isPlayer) {
             this.sprite.kill();  
             Fishy_gameplay.addPoints(this.points);
@@ -232,8 +233,20 @@ Fishy.Fish.prototype = {
                 Fishy_HUD.clearCombo();
             }
         } else {
-            this.game.paused = true;
+            this.playerDie();
         }
+    },
+    
+    playerDie: function() {
+        this.menu = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'menu');
+            this.menu.anchor.setTo(0.5);
+            this.menu.scale.setTo(1.5);
+            
+            this.game.add.text(this.game.world.centerX, this.game.world.centerY - 60, "You've Been Eaten!").anchor.setTo(0.5);
+            this.game.add.text(this.game.world.centerX - 75, this.game.world.centerY, "Score:     " + Fishy_HUD.getScore()).fill = '#ffffff';
+            
+            this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() { this.game.paused = true; }, this);
+        
     },
     
     getHit: function(otherFish) {
@@ -252,7 +265,11 @@ Fishy.Fish.prototype = {
                             otherFish.die(true);
                         }
                     } else if (otherFish.direction == Direction.DOWN) {
-                        this.die(false);
+                        if (this.active)
+                            otherFish.die(true);
+                        else
+                            this.die(true);
+                        
                     } else {
                         if (this.getOverlapY(otherFish) + 4 > this.getOverlapX(otherFish)) {
                             this.die(true);          
@@ -269,12 +286,15 @@ Fishy.Fish.prototype = {
                             otherFish.die(true);
                         }
                     } else if (otherFish.direction == Direction.LEFT) {
-                        this.die(false);
+                        if (this.active)
+                            otherFish.die(true);
+                        else
+                            this.die(true);
                     } else {
                         if (this.getOverlapX(otherFish) + 4 > this.getOverlapY(otherFish)) {
                             this.die(true);
                         } else if (this.active) {
-                            this.game.paused = true;
+                            this.playerDie();
                             otherFish.sprite.x = 9000;
                         }
                     }
@@ -287,7 +307,10 @@ Fishy.Fish.prototype = {
                             otherFish.die(true);
                         }
                     } else if (otherFish.direction == Direction.UP) {
-                        this.die(false);
+                        if (this.active)
+                            otherFish.die(true);
+                        else
+                            this.die(true);
                     } else {
                         if (this.getOverlapY(otherFish) + 4 > this.getOverlapX(otherFish)) {
                             this.die(true);          
@@ -296,8 +319,7 @@ Fishy.Fish.prototype = {
                         }
                     }
                     break;
-                //FIX THE LEFT DIRECTION, I KEEP GETTING KILLED WHEN THE ENEMY SHOULD BE THE DEATH ONE
-                case Direction.LEFT: //FIX
+                case Direction.LEFT:
                     if (otherFish.direction == Direction.LEFT) {
                         if (this.getx() < otherFish.getx()) {
                             this.die(true);
@@ -305,7 +327,10 @@ Fishy.Fish.prototype = {
                             otherFish.die(true);
                         }
                     } else if (otherFish.direction == Direction.RIGHT) {
-                        this.die(false);
+                        if (this.active)
+                            otherFish.die(true);
+                        else
+                            this.die(true);
                     } else {
                         
                         //enemy going left, i'm going up or down
@@ -317,7 +342,7 @@ Fishy.Fish.prototype = {
                         } else if (this.active) {
                             
                             otherFish.sprite.x = 9000;
-                            this.game.paused = true;
+                            this.playerDie();
                         }/*
                         if (otherFish.getx2() > this.getx() && otherFish.getx() < this.getx2()) {
                             showCorners(this);

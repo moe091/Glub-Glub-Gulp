@@ -5,7 +5,7 @@ Fishy.Input = function(game) {
     this.startY;
     this.dx;
     this.dy;
-    this.threshold = 32;
+    this.threshold = 20;
     
     this.dragEvents = [];
    

@@ -41,6 +41,13 @@ Fishy.Gameplay.prototype = {
         this.getRecycleable("DORY");    
     },
     
+    endGame: function() {
+        
+        this.menu = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'menu');
+        this.menu.anchor.setTo(0.5);
+        this.menu.scale.setTo(2);
+    },
+    
     spawnEnemy: function() {
         
     },

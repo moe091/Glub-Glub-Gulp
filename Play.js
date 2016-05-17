@@ -100,22 +100,8 @@ Fishy.Play.prototype = {
             */
         }
         
-        Fishy_HUD.setScore(285);
+        Fishy_HUD.setScore(0);
         
-        this.topright = this.game.add.sprite(this.myFish.getx2(), this.myFish.gety(), 'topright');
-        this.topleft = this.game.add.sprite(this.myFish.getx(), this.myFish.gety(), 'topleft');
-        this.bottomright = this.game.add.sprite(this.myFish.getx2(), this.myFish.gety2(), 'botright');
-        this.bottomleft = this.game.add.sprite(this.myFish.getx(), this.myFish.gety2(), 'botleft');
-        
-        this.topright.anchor.setTo(0.5);
-        this.topleft.anchor.setTo(0.5);
-        this.bottomright.anchor.setTo(0.5);
-        this.bottomleft.anchor.setTo(0.5);
-        
-        this.topright.alpha = 0;
-        this.topleft.alpha = 0;
-        this.bottomright.alpha = 0;
-        this.bottomleft.alpha = 0;
         
         
         
@@ -146,15 +132,6 @@ Fishy.Play.prototype = {
             }
         }
         checkWorldBounds(this.myFish.sprite);
-        this.topright.x = this.myFish.getx2();
-        this.topright.y = this.myFish.gety();
-        this.topleft.x = this.myFish.getx();
-        this.topleft.y = this.myFish.gety();
-        
-        this.bottomright.x = this.myFish.getx2();
-        this.bottomright.y = this.myFish.gety2();
-        this.bottomleft.x = this.myFish.getx();
-        this.bottomleft.y = this.myFish.gety2();
         this.updateReef();
         
         if (this.game.time.now > this.starFishTime) {

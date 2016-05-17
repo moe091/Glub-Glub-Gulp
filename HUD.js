@@ -49,7 +49,7 @@ Fishy.HUD.prototype = {
     update: function() {
         this.frame++;
         if (this.game.time.now > this.frameTime) {
-            this.scoreText.text = 'fps = ' + this.frame + '| ' + this.score;
+            this.scoreText.text = 'score = ' + this.score;
             this.frame = 0;
             this.frameTime = this.game.time.now + 1000;
         }
@@ -88,6 +88,10 @@ Fishy.HUD.prototype = {
     setScore: function(score) {
         this.score = score;
        // this.scoreText.text = this.game.time.fps +  " - SCORE: " + score;
+    },
+    
+    getScore: function() {
+        return this.score;
     }
 }
 
